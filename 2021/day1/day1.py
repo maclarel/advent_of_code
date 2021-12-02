@@ -8,16 +8,13 @@ with open('input.txt') as data:
         current_val = int_list[v[0]]
         last_val = int_list[v[0]-1]
         if v[0] > 0 and current_val > last_val:
-            #print(current_val,last_val)
             counter += 1
 
     # sliding window
     for v in enumerate(int_list):
-        current_val = int_list[v[0]] + int_list[v[0]-1] + int_list[v[0]-2] 
-        last_val = int_list[v[0]-1] + int_list[v[0]-2] + int_list[v[0]-3] 
-
+        current_val = sum([i for i in int_list[v[0]-3:v[0]]])
+        last_val = sum([i for i in int_list[v[0]-4:v[0]-1]])
         if v[0] > 2 and current_val > last_val:
-            #print(current_val,last_val)
             sliding_counter += 1
 
     print(f"Total for non-sliding window: {counter}")
