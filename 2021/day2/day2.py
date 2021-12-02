@@ -14,9 +14,7 @@ with open('input.txt') as f:
             d_pos += val
         else:
             d_pos -= val
-        
-        print(f'{c} hpos {h_pos} dpos {d_pos}')
-
+       
 print(d_pos*h_pos)
 
 # part 2
@@ -37,6 +35,5 @@ with open('input.txt') as f:
             aim += val
         else:
             aim -= val
-        print(f'{c} hpos {h_pos} dpos {d_pos} aim {aim}')
 
 print(d_pos*h_pos)
