@@ -22,13 +22,13 @@ class Board:
         self.nums = data
         self.winner = False
 
-class Row(Board):
+class Row:
     def __init__(self, data):
         self.data = list(map(int, list(data.split())))
         self.hits = []
         #print('Created row with', self.data)
 
-class Col(Board):
+class Col:
     def __init__(self, data):
         self.data = list(map(int, data))
         self.hits = []
@@ -72,7 +72,7 @@ print(marked_nums)
 print(board_nums)
 print('Sum of unmarked:', sum([i for i in board_nums if i not in marked_nums]))
 
-#part 2
+# Part 2
 
 boards = []
 
