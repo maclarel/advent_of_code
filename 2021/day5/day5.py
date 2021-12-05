@@ -1,4 +1,4 @@
-with open('test_input.txt') as f:
+with open('input.txt') as f:
     data = f.read().split('\n')
     split_data = [pair.split(' -> ') for pair in data]
     
@@ -21,8 +21,7 @@ print('starting board')
 # [print(row) for row in table] # don't need to show with real data
 
 for v in dict_data.items():
-    if v[1]['x1'] == v[1]['x2']:
-        #print('y range', v[1]['y1'], v[1]['y2'])
+    if v[1]['x1'] == v[1]['x2']: #print('y range', v[1]['y1'], v[1]['y2'])
         min_y_val = min(v[1]['y1'], v[1]['y2'])
         max_y_val = max(v[1]['y1'], v[1]['y2'])
         for i in range(min_y_val, max_y_val+1):
@@ -36,7 +35,7 @@ for v in dict_data.items():
             table[v[1]['y1']][i] += 1
 
 print('completed board for part 1')
-[print(row) for row in table] # don't need to show with real data
+#[print(row) for row in table] # don't need to show with real data
 
 overlap = 0
 for row in table:
@@ -50,22 +49,29 @@ print('num overlapping locations in part 1', overlap)
 print('updating board for part 2')
 
 for v in dict_data.items():
-    if abs(v[1]['x1'] - v[1]['x2']) and abs(v[1]['y1'] - v[1]['y2']):
-        print(v)
+    if abs(v[1]['x1'] - v[1]['x2']) == abs(v[1]['y1'] - v[1]['y2']):
         min_y_val = min(v[1]['y1'], v[1]['y2'])
         max_y_val = max(v[1]['y1'], v[1]['y2'])
         min_x_val = min(v[1]['x1'], v[1]['x2'])
         max_x_val = max(v[1]['x1'], v[1]['x2'])
-        zipped = zip(range(min_x_val, max_x_val+1),range(min_y_val, max_y_val+1))
-        #print(set(zipped))
+
+        x_range = list(range(min_x_val, max_x_val+1))
+        if v[1]['x1'] > v[1]['x2']:
+            x_range.reverse()
+        #print(x_range)
+            
+        y_range = list(range(min_y_val, max_y_val+1))
+        if v[1]['y1'] > v[1]['y2']:
+            y_range.reverse()
+        #print(y_range)
+        
+        zipped = zip(x_range, y_range)
         for i in set(zipped):
-            print(i)
             table[i[1]][i[0]] += 1
-        [print(row) for row in table] # don't need to show with real data
-        #breakpoint()
+        #[print(row) for row in table] # don't need to show with real data
                   
 print('completed board for part 2')
-[print(row) for row in table] # don't need to show with real data
+#[print(row) for row in table] # don't need to show with real data
 
 overlap = 0
 for row in table:
