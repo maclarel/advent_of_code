@@ -55,6 +55,7 @@ def check_winner():
                     #print(col.data)
                     return board
 
+
 winning_board = check_winner()
 print('Winning board:')
 print(winning_board.nums)
@@ -65,3 +66,37 @@ print(marked_nums)
 print(board_nums)
 print('Sum of unmarked:', sum([i for i in board_nums if i not in marked_nums]))
 
+#part 2
+
+winning_boards = []
+def check_loser():
+    for i in draw_order:
+        for board in boards:
+            for row in board.rows:
+                if i in row.data:
+                    row.hits.append(i)
+                    board.matches.append(i)
+                if len(row.hits) == 5:
+                    print("WINNER! Found with final value:", i)
+                    winning_boards.append(board)
+                    if board in boards:
+                        boards.remove(board)
+            for col in board.cols:
+                if i in col.data:
+                    col.hits.append(i)
+                    board.matches.append(i)
+                if len(col.hits) == 5:
+                    print("WINNER! Found with final value:", i)
+                    winning_boards.append(board)
+                    if board in boards:
+                        boards.remove(board)
+                    
+check_loser()
+print('Losing board:')
+losing_nums = winning_boards[-1].nums
+print(losing_nums)
+print('Losing board matches:')
+losing_marked_nums = set(winning_boards[-1].matches)
+losing_board_nums = list(map(int, losing_nums.split()))
+print(losing_marked_nums)
+print('Sum of unmarked:', sum([i for i in losing_board_nums if i not in losing_marked_nums]))
