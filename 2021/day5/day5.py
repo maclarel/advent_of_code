@@ -1,4 +1,4 @@
-with open('input.txt') as f:
+with open('test_input.txt') as f:
     data = f.read().split('\n')
     split_data = [pair.split(' -> ') for pair in data]
     
@@ -35,12 +35,41 @@ for v in dict_data.items():
         for i in range(min_x_val, max_x_val+1):
             table[v[1]['y1']][i] += 1
 
-print('completed board')
-#[print(row) for row in table] # don't need to show with real data
+print('completed board for part 1')
+[print(row) for row in table] # don't need to show with real data
 
 overlap = 0
 for row in table:
     for i in row:
         if i > 1:
             overlap += 1
-print('num overlapping locations', overlap)
+print('num overlapping locations in part 1', overlap)
+
+# part 2
+
+print('updating board for part 2')
+
+for v in dict_data.items():
+    if abs(v[1]['x1'] - v[1]['x2']) and abs(v[1]['y1'] - v[1]['y2']):
+        print(v)
+        min_y_val = min(v[1]['y1'], v[1]['y2'])
+        max_y_val = max(v[1]['y1'], v[1]['y2'])
+        min_x_val = min(v[1]['x1'], v[1]['x2'])
+        max_x_val = max(v[1]['x1'], v[1]['x2'])
+        zipped = zip(range(min_x_val, max_x_val+1),range(min_y_val, max_y_val+1))
+        #print(set(zipped))
+        for i in set(zipped):
+            print(i)
+            table[i[1]][i[0]] += 1
+        [print(row) for row in table] # don't need to show with real data
+        #breakpoint()
+                  
+print('completed board for part 2')
+[print(row) for row in table] # don't need to show with real data
+
+overlap = 0
+for row in table:
+    for i in row:
+        if i > 1:
+            overlap += 1
+print('num overlapping locations in part 2', overlap)
