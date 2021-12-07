@@ -1,41 +1,36 @@
-from statistics import mode
-
 with open('input.txt') as f:
     data = f.read().strip()
     data = list(map(int, list(data.split(','))))
 
-print(data)
-target_loc = mode(data)
-print(target_loc)
-total_fuel_cost = 0
-for f in data:
-    total_fuel_cost += abs(f - target_loc)
-print(total_fuel_cost)
+# part 1
 
-#
-# JANK
-#
-
-jank = []
+crab_blaster_locs = {}
 for i in range(max(data)):
     total_fuel_cost = 0
     for f in data:
         total_fuel_cost += abs(f - i)
-    jank.append(total_fuel_cost)
+    crab_blaster_locs[i]=total_fuel_cost
 
-print(min(jank))
+min_cost = min(crab_blaster_locs.values())
+print('min cost', min_cost)
 
-#
+for loc, val in crab_blaster_locs.items():
+    if val == min_cost:
+        print('target loc =', loc)
+
 # JANK part 2
-#
 
-jank = []
+crab_blaster_locs = {}
 for i in range(max(data)):
     total_fuel_cost = 0
     for f in data:
         movement = abs(f - i)
-        for v in range(movement+1):
-            total_fuel_cost += v
-    jank.append(total_fuel_cost)
+        total_fuel_cost += movement*(movement+1)/2 # https://www.cuemath.com/sum-of-natural-numbers-formula/
+    crab_blaster_locs[i] = total_fuel_cost
 
-print(min(jank))
+min_cost = int(min(crab_blaster_locs.values()))
+print('min cost', min_cost)
+
+for loc, val in crab_blaster_locs.items():
+    if val == min_cost:
+        print('target loc =', loc)
