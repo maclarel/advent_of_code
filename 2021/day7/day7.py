@@ -18,7 +18,7 @@ for loc, val in crab_blaster_locs.items():
     if val == min_cost:
         print('target loc =', loc)
 
-# JANK part 2
+# part 2
 
 crab_blaster_locs = {}
 for i in range(max(data)):
