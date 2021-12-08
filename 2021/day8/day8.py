@@ -33,6 +33,8 @@ len_dict = {
         '8': 7
 }
 total_val = 0
+
+# this is spaghetti, so lets add comments
 for line in start_data:
     decode_dict = defaultdict(None)
     data = line.split(' | ')
@@ -42,7 +44,9 @@ for line in start_data:
         if len(val) in len_dict.values():
             key = [k for k, v in len_dict.items() if v == len(val)]
             decode_dict[key[0]] = val
-    # identify 2, 3, and 5
+    # identify 2, 3, and 5 by means of known unique-length values
+    # possible as these three will all have a set length of 5
+    # 3 will contain all of 1's values, 5 contains delta of 1 & 4, and 2 contains neither
     for val in data[0].split():
         if len(val) == 5:
             if len([l for l in set(val) if l in set(decode_dict['1'])]) == len(decode_dict['1']):
@@ -51,7 +55,11 @@ for line in start_data:
                 decode_dict['2'] = val
             else:
                 decode_dict['5'] = val
-    # identify 0, 6, 9
+    # identify 0, 6, 9 by leveraging everything else we have
+    # possible as these three will all have a set length of 6
+    # 0 with have a 2 char difference in its set compared to 5
+    # 9 will contain a 4 character difference in its set compared to 1
+    # 6 will be the remaining value
     for val in data[0].split():
         if len(val) == 6:
             if len(set(val).difference(set(decode_dict['5']))) == 2:
@@ -61,10 +69,11 @@ for line in start_data:
             else:
                 decode_dict['6'] = val
 
+    # map strings to values through dict lookups
     for val in data[1].split():
         row_val += [k for k,v in decode_dict.items() if set(v) == set(val)][0]
 
-    #print(row_val)
+    #build our total val
     total_val += int(row_val)
 
 print(total_val)
