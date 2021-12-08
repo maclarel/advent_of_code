@@ -24,8 +24,6 @@ print('p1', counter)
 
 from collections import defaultdict
 
-d1 = [v[0] for v in [line.split(' | ') for line in start_data]] 
-d2 = [v[1] for v in [line.split(' | ') for line in start_data]] 
 len_dict = {
         '1': 2,
         '4': 4,
@@ -76,5 +74,5 @@ for line in start_data:
     #build our total val
     total_val += int(row_val)
 
-print(total_val)
+print('p2', total_val)
 
