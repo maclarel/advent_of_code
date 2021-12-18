@@ -15,28 +15,51 @@ points_lookup = {
         ">": 25137
         }
 
-total_score = 0
+points_lookup2 = {
+        "]": 2,
+        ")": 1,
+        "}": 3,
+        ">": 4
+        }
 
 def parse_line(line):
     last_opening_char = []
-    #print("parsing line", line)
     for c in line:
-        #print('evaling', c)
         if c in chars.keys():
             last_opening_char.append(c)
-            #print('looks like opening char, adding to last_opening_char')
         elif c in chars.values():
             if c != chars[last_opening_char[-1]]:
-                print(f"Expected {chars[last_opening_char[-1]]}, but found {c} instead.")
                 return points_lookup[c]
                 break
             last_opening_char.pop()
-            #print("found match, removing", last_opening_char.pop())
     return 0
 
+def complete_line(line):
+    score = 0
+    last_opening_char = []
+    for c in line:
+        if c in chars.keys():
+            last_opening_char.append(c)
+        elif c in chars.values():
+            last_opening_char.pop()
+    for val in last_opening_char[::-1]:
+        closing_char = chars[last_opening_char.pop()]
+        score = score * 5 + points_lookup2[closing_char]
+    return score
+
+# part 1
+total_score = 0
 
 for line in data:
     total_score += parse_line(line)
 
-# part 1
-print(total_score)
+print("part 1:", total_score)
+
+# part 2
+scores = []
+for line in data:
+    if parse_line(line) == 0:
+        scores.append(complete_line(line))
+scores.sort()
+midpoint = int(len(scores)/2)
+print("part 2:", scores[midpoint])
