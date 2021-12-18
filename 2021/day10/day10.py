@@ -19,21 +19,20 @@ total_score = 0
 
 def parse_line(line):
     last_opening_char = []
-    print("parsing line", line)
+    #print("parsing line", line)
     for c in line:
-        print('evaling', c)
+        #print('evaling', c)
         if c in chars.keys():
             last_opening_char.append(c)
-            print('looks like opening char, adding to last_opening_char')
+            #print('looks like opening char, adding to last_opening_char')
         elif c in chars.values():
             if c != chars[last_opening_char[-1]]:
                 print(f"Expected {chars[last_opening_char[-1]]}, but found {c} instead.")
                 return points_lookup[c]
                 break
-            print("found match, removing", last_opening_char.pop())
+            last_opening_char.pop()
+            #print("found match, removing", last_opening_char.pop())
     return 0
-
-    print("completed parsing")
 
 
 for line in data:
